@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Tile
+comment0.text=\n\ Write\ a\ description\ of\ class\ Tile\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ Tile\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.params=
+comment2.target=void\ checkInput()
+comment3.params=
+comment3.target=void\ moveTiles()
+comment4.params=
+comment4.target=boolean\ atBorder()
+comment5.params=
+comment5.target=boolean\ atTile()
+comment6.params=
+comment6.target=void\ mergeTiles()
+comment6.text=public\ boolean\ atTileOfSameValue()\ {\n\ \ \ \ \n}
+numComments=7
