@@ -1,9 +1,10 @@
 #Greenfoot project file
 class.Counter.image=Counter.png
-editor.fx.0.height=722
-editor.fx.0.width=800
+class.Tile.image=Tile.png
+editor.fx.0.height=958
+editor.fx.0.width=962
 editor.fx.0.x=400
-editor.fx.0.y=157
+editor.fx.0.y=153
 height=545
 package.numDependencies=0
 package.numTargets=3
@@ -20,7 +21,7 @@ readme.name=@README
 readme.width=47
 readme.x=10
 readme.y=10
-simulation.speed=50
+simulation.speed=41
 target1.height=50
 target1.name=Counter
 target1.showInterface=false
