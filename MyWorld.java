@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyWorld extends World
 {
 
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -16,6 +17,19 @@ public class MyWorld extends World
     public MyWorld()
     {    
         // Create a new world with 400x400 cells with a cell size of 100x100 pixels.
-        super(4, 4, 100);
+        super(4, 5, 100);
+        prepare();
     }
+
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
+        Counter counter = new Counter();
+        addObject(counter,3,4);
+        counter.setLocation(3,4);
+    }
+    
 }
