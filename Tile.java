@@ -9,10 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Tile extends Actor
 {
 
-    private int value = 2;
-    private static boolean newTileAdded = false;
+
+    private int value = 2; //this instance variable tracks the current value of the tile
     private boolean keyReleased = true; //this instance variable tracks whether the key was released in checkInput(), to prevent multiple actions from one key press
     public static String key; //this instance variable is used to track the last pressed key in checkInput() in both Tile.java and Counter.java
+    public static boolean moveMade = false;
 
 
     //constructor:
@@ -21,6 +22,8 @@ public class Tile extends Actor
         image.scale(100, 100);
         setImage(image);
     }
+
+
     /**
     * Act - do whatever the Tile wants to do. This method is called whenever
     * the 'Act' or 'Run' button gets pressed in the environment.
@@ -28,7 +31,7 @@ public class Tile extends Actor
     public void act()
     {
         updateTileValue(); //this updates the number on the tile with the current value, so when the value of a tile changes, the number on it changes to reflect its new value
-        checkInput();
+        if (Instructions.gameStarted) checkInput(); //if the game has started, this method checks the last pressed key, then runs moveTiles() if an arrow key was pressed to move the tile accordingly
     }
 
 
@@ -37,15 +40,14 @@ public class Tile extends Actor
         Color color = new Color(0,0,0,0);
         GreenfootImage image = new GreenfootImage("Tile.png");
         image.scale(100, 100);
-        GreenfootImage tileValueImage = new GreenfootImage(" " + value, 40, Color.BLACK, color);
+        GreenfootImage tileValueImage = new GreenfootImage("" + value, 40, Color.BLACK, color);
         image.drawImage(tileValueImage, (image.getWidth() - tileValueImage.getWidth()) / 2, (image.getHeight() - tileValueImage.getHeight()) / 2);
         setImage(image);
     }
 
 
-    //this method checks the last pressed key, then runs moveTiles() if an arrow key was pressed to moves the tile accordingly
+    //this method checks the last pressed key, then runs moveTiles() if an arrow key was pressed to move the tile accordingly
     public void checkInput() {
-        //key = Greenfoot.getKey(); //set instance variable key to the last pressed key        new removed
         if (key == null) { //if no key was pressed (meaning all keys have been released), set keyReleased to true
             keyReleased = true;
         }
@@ -53,23 +55,27 @@ public class Tile extends Actor
             setRotation(270); //the tile is moved to face upwards,
             moveTiles(); //the tile is moved,
             keyReleased = false; //and keyReleased is set to false, so the key has to be released before the command can be run again.
+            moveMade = true;
         }
         else if (("left").equals(key) && keyReleased) { //if the left arrow is pressed,
             setRotation(180); //the tile is moved to face leftwards,
             moveTiles(); //the tile is moved,
             keyReleased = false; //and keyReleased is set to false, so the key has to be released before the command can be run again.
+            moveMade = true;
         }
         else if (("down").equals(key) && keyReleased) { //if the down arrow is pressed,
             setRotation(90); //the tile is moved to face downwards,
-            moveTiles(); //the tile i //and keyReleased is set to false, so the key has to be released before the command can be run again.s moved,
-            keyReleased = false;
+            moveTiles(); //the tile is moved,
+            keyReleased = false; //and keyReleased is set to false, so the key has to be released before the command can be run again.
+            moveMade = true;
         }
         else if (("right").equals(key) && keyReleased) { //if the right arrow is pressed,
             setRotation(0); //the tile is moved to face rightwards,
             moveTiles(); //the tile is moved,
             keyReleased = false; //and keyReleased is set to false, so the key has to be released before the command can be run again.
+            moveMade = true;
         }
-        else if (("q").equals(key)) Greenfoot.stop();
+        else if (("q").equals(key)) Greenfoot.stop(); //if Q is pressed, stop the game
 
     }
 
@@ -87,14 +93,15 @@ public class Tile extends Actor
         }
         setRotation(0);
         Counter.increaseScore(2); //this increases the score by 2 every move, for Counter demonstration purposes.
-
     }
+
 
     //this method checks to see if the tile is at the edge of the grid. If it is, the method returns true.
     public boolean atBorder() {
         if (((getX()==0 && getRotation()==180) || (getX()==3 && getRotation()==0)) || ((getY()==0 && getRotation()==270) || (getY()==3 && getRotation()==90))) return true;
         else return false;
     }
+
 
     //this method checks to see if the tile is next to another tile. If it is, the method returns true.
     public boolean atTile() {
@@ -103,6 +110,7 @@ public class Tile extends Actor
         else if (getRotation()==90) return getObjectsAtOffset(0, -1, Tile.class).size() != 0; //down
         else if (getRotation()==0) return getObjectsAtOffset(1, 0, Tile.class).size() != 0; //right
         else return false;
+
 
     }
     //this method checks to see if the tile adjacent to the current tile has the same value. If it does, the method returns true.
@@ -121,14 +129,16 @@ public class Tile extends Actor
         else if (getRotation()==180) getObjectsAtOffset(-1, 0, Tile.class).get(0).increaseValue(); //left
         else if (getRotation()==90) getObjectsAtOffset(0, -1, Tile.class).get(0).increaseValue(); //down
         else if (getRotation()==0) getObjectsAtOffset(1, 0, Tile.class).get(0).increaseValue(); //right
-        getWorld().removeObject(this);
-        Counter.increaseScore(value*2);
+        getWorld().removeObject(this); //remove second tile
+        Counter.increaseScore(value*2); //increase score
     }
+
 
     //this method returns the value of the tile, so that adjacent tiles can see if they are able to merge with it.
     public int getValue() {
         return this.value;
     }
+
 
     public void increaseValue() {
         this.value = this.value*2;
