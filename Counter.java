@@ -15,10 +15,11 @@ public class Counter extends Actor
 
     //the constructor sets the score to 0 when the game is started
     public Counter() {
-        score = 0;
-        GreenfootImage image = new GreenfootImage("Counter.png");
-        image.scale(225, 75);
-        setImage(image);
+        GreenfootImage image = new GreenfootImage("Counter.png"); //gets the Tile image
+        image.scale(225, 75); //scales the Tile image
+        setImage(image); //sets the Tile image
+
+        score = 0; //sets the score to 0 at the beginning of a game
     }
 
     /**

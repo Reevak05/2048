@@ -22,12 +22,12 @@ public class Instructions extends Actor
      * Act - do whatever the Instructions wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    //when the user presses any key on the instructions screen, the instructions are removed and the Tile and Counter objects can respond to input
     public void act() {
         if (!gameStarted) {
-            if (Greenfoot.getKey() != null) {
-                gameStarted = true;
-                getWorld().removeObject(this);
+            if (Greenfoot.getKey() != null) { //when the user presses any key on the instructions screen,
+                gameStarted = true; //the Tile and Counter objects can respond to input,
+                getWorld().removeObject(this); //and the instructions are removed.
+                Tile.moveMade = true; //moveMade is initially set to true so a tile is added when the game is started
             }
         }
     }    

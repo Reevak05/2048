@@ -11,14 +11,10 @@ public class MyWorld extends World
 
     private boolean keyReleased = true; //this instance variable tracks whether the key was released in checkInput(), to prevent multiple actions from one key press
 
-    /**
-     * Constructor for objects of class MyWorld.
-     * 
-     */
+    //constructor:
     public MyWorld()
-    {    
-        // Create a new world with 400x400 cells with a cell size of 100x100 pixels.
-        super(4, 5, 100);
+    {
+        super(4, 5, 100); //creates a new world with 400x400 cells with a cell size of 100x100 pixels
         prepare();
     }
 
@@ -28,13 +24,13 @@ public class MyWorld extends World
      */
     private void prepare()
     {
-        Counter counter = new Counter();
-        addObject(counter,3,4);
-        counter.setLocation(2,4);
+        Counter counter = new Counter(); //creates a Counter object
+        addObject(counter,3,4); //adds the counter to the world
+        counter.setLocation(2,4); //sets the location of the counter
         
-        Instructions instructions = new Instructions();
-        addObject(instructions,3,4);
-        instructions.setLocation(2,2);
+        Instructions instructions = new Instructions(); //creates an Instructions object
+        addObject(instructions,3,4); //adds the instructions to the world
+        instructions.setLocation(2,2); //sets the location of the instructions
     }
 
 
@@ -44,28 +40,15 @@ public class MyWorld extends World
      * MyWorld always runs act() before the other classes, which are run in unspecified order.
      */
     public void act() {
-        /*if (Tile.moveMade) {
-            addTile();
-            Tile.moveMade = false;
-        }*/
-        if (Instructions.gameStarted) checkInput(); //if the game has started, this method checks if an arrow key has been pressed to determine if the player made a move. If so, it runs addTile() to add another tile to the board.
-
-    }
-    
-    //this method checks if an arrow key has been pressed, to determine if the player made a move. If so, it runs addTile() to add another tile to the board.
-    public void checkInput() {
-        Tile.key = Greenfoot.getKey(); //set Tile instance variable key to the last pressed key; this has to be done in the Counter class because there can be multiple tiles on the board simultaneously
-        //this method uses the key instance variable in the Tile class, because Greenfoot.getKey() returns the key pressed (or null if no keys have been pressed) since the last time Greenfoot.getKey() was called
-        
-        if (Tile.key == null) {
-            keyReleased = true;
-        }
-        else if ((("up").equals(Tile.key) || ("left").equals(Tile.key) || ("down").equals(Tile.key) || ("right").equals(Tile.key)) && keyReleased) { //if any of the arrow keys are pressed, another tile is added to the grid
-            addTile();
-            keyReleased = false;
+        if (Instructions.gameStarted && Tile.moveMade) { //if the game has started and the player has made a move,
+            Greenfoot.delay(2); //the game is momentarilty delayed so the player can tell which tile was added,
+            addTile(); //a tile is added to the board,
+            Tile.moveMade = false; //and Tile.movemade is set to false so multiple tiles are not added for one move
         }
 
+        if (Instructions.gameStarted) Tile.key = Greenfoot.getKey();  //set Tile instance variable key to the last pressed key; this has to be done in the MyWorld class because there can be multiple tiles on the board simultaneously and Greenfoot.getKey() returns the key pressed (or null if no keys have been pressed) since the last time Greenfoot.getKey() was called
     }
+
 
     //this method adds a new tile to the board in an empty space
     public void addTile() {
