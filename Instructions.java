@@ -9,12 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Instructions extends Actor
 {
 
-    public static boolean gameStarted; //this instance variable tracks whether the user has pressed a key when the instructions are shown to start the game
+    public static boolean gameStarted; //this instance variable tracks whether the user has pressed a key when the instructions are shown and started the game
 
     
     //constructor:
     public Instructions() {
-        gameStarted = false;
+        gameStarted = false; //gameStarted is initially set to false because the game has not started yet
     }
 
     
@@ -23,11 +23,11 @@ public class Instructions extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() {
-        if (!gameStarted) {
+        if (!gameStarted) { //if the game has not been started yet:
             if (Greenfoot.getKey() != null) { //when the user presses any key on the instructions screen,
                 gameStarted = true; //the Tile and Counter objects can respond to input,
-                getWorld().removeObject(this); //and the instructions are removed.
-                Tile.moveMade = true; //moveMade is initially set to true so a tile is added when the game is started
+                getWorld().removeObject(this); //the instructions are removed,
+                Tile.moveMade = true; //and moveMade is initially set to true so a tile is added when the game is started
             }
         }
     }    

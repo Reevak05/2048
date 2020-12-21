@@ -12,8 +12,8 @@ public class Tile extends Actor
 
     private int value = 2; //this instance variable tracks the current value of the tile
     private boolean keyReleased = true; //this instance variable tracks whether the key was released in checkInput(), to prevent multiple actions from one key press
-    public static String key; //this instance variable is used to track the last pressed key in checkInput() in both Tile.java and Counter.java
-    public static boolean moveMade = true;
+    public static String key; //this instance variable is used to track the last pressed key for checkInput(); it is set in MyWorld.java
+    public static boolean moveMade = true; //this instance variable tracks whether a move has been made since a tile was added to the board, so a tile can be added after a move
 
 
     //constructor:
@@ -49,8 +49,8 @@ public class Tile extends Actor
     //this method checks the last pressed key, then runs moveTiles() if an arrow key was pressed to move the tile accordingly
     //note: this method is slightly repetitive because making it less repetitive would also decrease readability
     public void checkInput() {
-        if (key == null) { //if no key was pressed (meaning all keys have been released), set keyReleased to true
-            keyReleased = true;
+        if (key == null) { //if no key is pressed (meaning all keys have been released),
+            keyReleased = true; //set keyReleased to true
         }
         else if (("up").equals(key) && keyReleased) { //if the up arrow is pressed,
             setRotation(270); //the tile is moved to face upwards,
@@ -80,10 +80,10 @@ public class Tile extends Actor
     }
 
 
-    //this method moves the tiles in the direction they are facing (they are turned to rotate the direction corresponding to the player's input in checkInput()), until there is something blocking the way of the tile.
+    //this method moves the tiles in the direction they are facing (they are turned to rotate the direction corresponding to the player's input in checkInput()) until there is something blocking the way of the tile.
     public void moveTiles() {
         for (int i = 0; i<4; i++) {
-            if (!atBorder() && !atTile()) { //this moves the tile if it is not going to hit the border or another tile
+            if (!atBorder() && !atTile()) { //move the tile if it is not going to hit the border or another tile
                 move(1);
             }
             else if (!atBorder() && atTile() && atTileOfSameValue()) { //if the tile is facing another tile of the same value,
@@ -138,7 +138,7 @@ public class Tile extends Actor
         return this.value;
     }
 
-
+    //this method increases the value of the tile and is used when a merge takes place.
     public void increaseValue() {
         this.value = this.value*2;
     }

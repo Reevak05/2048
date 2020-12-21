@@ -9,11 +9,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Counter extends Actor
 {
 
-    private static int score; //this instance variable tracks the current score and is used to set the score in updateScoreOnCounter()
-    private boolean keyReleased = true; //this instance variable tracks whether the key was released in checkInput(), to prevent multiple actions from one key press
+    private static int score; //this instance variable tracks the current score and is used in updateScoreOnCounter() to set the score
 
-
-    //the constructor sets the score to 0 when the game is started
+    //constructor:
     public Counter() {
         GreenfootImage image = new GreenfootImage("Counter.png"); //gets the Tile image
         image.scale(225, 75); //scales the Tile image
@@ -26,7 +24,7 @@ public class Counter extends Actor
      * Act - do whatever the Counter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act() 
+    public void act()
     {
         if (Instructions.gameStarted) updateScoreOnCounter(); //if the game has started, this updates the number on the counter with the current score, so when the score changes, the number on the counter changes to reflect the new score
     }
